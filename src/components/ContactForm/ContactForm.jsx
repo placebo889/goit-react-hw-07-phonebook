@@ -30,14 +30,20 @@ const ContactForm = () => {
 
   const handleChange = event => {
     const { name, value } = event.target;
+    let formattedValue = value;
+    if (name === 'name') {
+      // Видаляємо пробіли з імені
+      formattedValue = value.replace(/\s+/g, '');
+      // Перша літера - велика
+      formattedValue = formattedValue.charAt(0).toUpperCase() + formattedValue.slice(1);
+    }
     switch (name) {
       case 'name':
-        setName(value);
+        setName(formattedValue);
         break;
       case 'number':
         setNumber(value);
         break;
-
       default:
         break;
     }
@@ -75,7 +81,7 @@ const ContactForm = () => {
         placeholder="Enter number"
         value={number}
       />
-      <Button type="submin" disabled={isFetching} >Add contact</Button>
+      <Button type="submit" disabled={isFetching}>Add contact</Button>
     </Form>
   );
 };
